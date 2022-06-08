@@ -1,21 +1,23 @@
 package com.epam.service;
 
 import com.epam.model.User;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(locations = {"classpath:beans.xml"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class UserServiceTest {
+public class UserServiceIntegrationTest {
     @Autowired
     private UserService service = new UserService();
 
@@ -28,9 +30,9 @@ public class UserServiceTest {
 
     @Test
     public void shouldGetUserByEmail_success() {
-        User result = service.getUserByEmail("olga@mail.com");
+        User result = service.getUserByEmail("john@mail.com");
 
-        assertEquals("olga@mail.com", result.getEmail());
+        assertEquals("john@mail.com", result.getEmail());
     }
 
     @Test
@@ -84,8 +86,8 @@ public class UserServiceTest {
     @Test
     public void shouldDeleteUser_throwException() {
         IllegalStateException thrown = assertThrows(IllegalStateException.class, () ->
-                service.deleteUser(3));
+                service.deleteUser(55));
 
-        Assertions.assertEquals("User doesn't exist with id: 3", thrown.getMessage());
+        Assertions.assertEquals("User doesn't exist with id: 55", thrown.getMessage());
     }
 }

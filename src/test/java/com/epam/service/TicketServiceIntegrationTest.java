@@ -3,12 +3,13 @@ package com.epam.service;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
 import com.epam.model.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.Instant;
 import java.util.Date;
@@ -17,13 +18,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(locations = {"classpath:beans.xml"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class TicketServiceTest {
+@AutoConfigureMockMvc
+public class TicketServiceIntegrationTest {
 
     @Autowired
     private TicketService service = new TicketService();
 
-    @Test
     public void shouldBookTicket() {
         Ticket result = service.bookTicket(1, 1, 3, Ticket.Category.STANDARD);
 
@@ -51,7 +54,7 @@ public class TicketServiceTest {
 
         List<Ticket> result = service.getBookedTickets(event, 5, 1);
 
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
     }
 
     @Test
