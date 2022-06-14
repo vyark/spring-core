@@ -6,24 +6,19 @@ import com.epam.model.User;
 import com.epam.service.EventService;
 import com.epam.service.TicketService;
 import com.epam.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class BookingFacadeImpl implements BookingFacade {
 
     private UserService userService;
     private TicketService ticketService;
     private EventService eventService;
-
-    public BookingFacadeImpl(UserService userService, TicketService ticketService,
-                             EventService eventService) {
-        this.userService = userService;
-        this.ticketService = ticketService;
-        this.eventService = eventService;
-    }
 
     @Override
     public Event getEventById(long eventId) {

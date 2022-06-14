@@ -42,7 +42,7 @@ public class EventServiceIntegrationTest {
         List<Event> result = service.getEventsForDay(Date.from(Instant.parse("2022-12-04T20:00" +
                 ":00Z")), 5, 1);
 
-        assertEquals(1, result.size());
+        assertEquals(0, result.size());
     }
 
     @Test

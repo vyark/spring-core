@@ -16,7 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.epam.storage.Storage.*;
+import static com.epam.storage.Storage.EVENT_PREFIX_ID;
+import static com.epam.storage.Storage.TICKET_PREFIX_ID;
+import static com.epam.storage.Storage.USER_PREFIX_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
