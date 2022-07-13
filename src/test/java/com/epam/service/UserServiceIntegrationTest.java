@@ -1,25 +1,24 @@
 package com.epam.service;
 
 import com.epam.model.User;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(locations = {"classpath:beans.xml"})
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class UserServiceIntegrationTest {
+
     @Autowired
-    private UserService service = new UserService();
+    private UserService service;
 
     @Test
     public void shouldGetUserById() {
@@ -55,7 +54,7 @@ public class UserServiceIntegrationTest {
     public void shouldCreateUser() {
         User user = new User();
         user.setId(3);
-        user.setName("Alice");
+        user.setFirstName("Alice");
         user.setEmail("alice@mail.com");
 
         User result = service.createUser(user);
@@ -67,12 +66,12 @@ public class UserServiceIntegrationTest {
     public void shouldUpdateUser() {
         User user = new User();
         user.setId(2);
-        user.setName("Peter");
+        user.setFirstName("Peter");
         user.setEmail("peter@mail.com");
 
         User result = service.updateUser(user);
 
-        assertEquals("Peter", result.getName());
+        assertEquals("Peter", result.getFirstName());
         assertEquals("peter@mail.com", result.getEmail());
     }
 
