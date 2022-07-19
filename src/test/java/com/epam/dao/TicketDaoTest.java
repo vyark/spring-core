@@ -39,8 +39,8 @@ public class TicketDaoTest {
     public void shouldPut() {
         Ticket ticket = new Ticket();
         ticket.setId(1);
-        ticket.setEventId(1);
-        ticket.setUserId(1);
+        ticket.setEvent(new Event(1));
+        ticket.setUser(new User(1));
         ticket.setCategory(Ticket.Category.STANDARD);
         ticket.setPlace(1);
 
@@ -53,8 +53,8 @@ public class TicketDaoTest {
     public void shouldRemove_success() {
         Ticket ticket = new Ticket();
         ticket.setId(1);
-        ticket.setEventId(1);
-        ticket.setUserId(1);
+        ticket.setEvent(new Event(1));
+        ticket.setUser(new User(1));
         ticket.setCategory(Ticket.Category.STANDARD);
         ticket.setPlace(1);
 
@@ -85,13 +85,13 @@ public class TicketDaoTest {
 
         User user = new User();
         user.setId(1);
-        user.setName("Mary");
+        user.setFirstName("Mary");
         user.setEmail("mary@mail.com");
 
         Ticket ticket = new Ticket();
         ticket.setId(1);
-        ticket.setEventId(1);
-        ticket.setUserId(1);
+        ticket.setEvent(event);
+        ticket.setUser(user);
         ticket.setCategory(Ticket.Category.STANDARD);
         ticket.setPlace(1);
 

@@ -3,13 +3,11 @@ package com.epam.service;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
 import com.epam.model.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.Instant;
 import java.util.Date;
@@ -18,14 +16,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(locations = {"classpath:beans.xml"})
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@AutoConfigureMockMvc
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class TicketServiceIntegrationTest {
 
     @Autowired
-    private TicketService service = new TicketService();
+    private TicketService service;
 
     public void shouldBookTicket() {
         Ticket result = service.bookTicket(1, 1, 3, Ticket.Category.STANDARD);
@@ -37,7 +33,7 @@ public class TicketServiceIntegrationTest {
     public void shouldGetBookedTicketsByUser() {
         User user = new User();
         user.setId(1);
-        user.setName("John");
+        user.setFirstName("John");
         user.setEmail("john@mail.com");
 
         List<Ticket> result = service.getBookedTickets(user, 5, 1);

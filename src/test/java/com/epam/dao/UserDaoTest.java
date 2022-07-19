@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -22,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class UserDaoTest {
     @Mock
     private Storage storage;
@@ -39,7 +37,7 @@ public class UserDaoTest {
     public void shouldPut() {
         User user = new User();
         user.setId(1);
-        user.setName("Olga");
+        user.setFirstName("Olga");
         user.setEmail("olga@mail.com");
 
         when(storage.getRepository()).thenReturn(new HashMap<>());
@@ -53,12 +51,12 @@ public class UserDaoTest {
     public void shouldReplace() {
         User user = new User();
         user.setId(1);
-        user.setName("Olga");
+        user.setFirstName("Olga");
         user.setEmail("olga@mail.com");
 
         User replaceUser = new User();
         replaceUser.setId(2);
-        replaceUser.setName("Tom");
+        replaceUser.setFirstName("Tom");
         replaceUser.setEmail("tom@mail.com");
 
         when(storage.getRepository()).thenReturn(new HashMap<>());
@@ -74,7 +72,7 @@ public class UserDaoTest {
     public void shouldGet() {
         User user = new User();
         user.setId(1);
-        user.setName("Olga");
+        user.setFirstName("Olga");
         user.setEmail("olga@mail.com");
 
         Map<String, Object> repository = new HashMap<>();
@@ -91,7 +89,7 @@ public class UserDaoTest {
     public void shouldRemove_success() {
         User user = new User();
         user.setId(1);
-        user.setName("Olga");
+        user.setFirstName("Olga");
         user.setEmail("olga@mail.com");
 
         Map<String, Object> repository = new HashMap<>();
@@ -121,7 +119,7 @@ public class UserDaoTest {
 
         User user = new User();
         user.setId(1);
-        user.setName("Mary");
+        user.setFirstName("Mary");
         user.setEmail("mary@mail.com");
 
         Map<String, Object> repository = new HashMap<>();

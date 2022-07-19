@@ -1,5 +1,6 @@
 package com.epam.facade;
 
+import com.epam.mapper.ObjXMLMapper;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
 import com.epam.model.User;
@@ -7,6 +8,7 @@ import com.epam.service.EventService;
 import com.epam.service.TicketService;
 import com.epam.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,6 +21,7 @@ public class BookingFacadeImpl implements BookingFacade {
     private UserService userService;
     private TicketService ticketService;
     private EventService eventService;
+    private ObjXMLMapper objXMLMapper;
 
     @Override
     public Event getEventById(long eventId) {
@@ -98,5 +101,11 @@ public class BookingFacadeImpl implements BookingFacade {
     @Override
     public boolean cancelTicket(long ticketId) {
         return ticketService.cancelTicket(ticketId);
+    }
+
+    @SneakyThrows
+    @Override
+    public List<Ticket> preloadTickets() {
+        return objXMLMapper.XMLToObj();
     }
 }

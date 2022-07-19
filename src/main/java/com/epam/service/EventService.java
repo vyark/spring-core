@@ -11,11 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
 public class EventService {
 
     @Autowired
     private EventDao eventDao;
+
+    public List<Event> getEvents(){
+        return eventDao.values();
+    }
 
     public Event getEventById(long eventId) {
         return eventDao.get(eventId);

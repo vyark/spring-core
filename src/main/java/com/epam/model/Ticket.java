@@ -1,17 +1,23 @@
 package com.epam.model;
 
 import lombok.Data;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlAttribute;
 
-/**
- * Created by maksym_govorischev.
- */
+
 @Data
+@XmlRootElement
+@XmlType(propOrder = {"user", "event", "category", "place"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Ticket {
     public enum Category {STANDARD, PREMIUM, BAR}
-
+    @XmlAttribute(name="id")
     private long id;
-    private long eventId;
-    private long userId;
+    private Event event;
+    private User user;
     private Category category;
     private int place;
 }

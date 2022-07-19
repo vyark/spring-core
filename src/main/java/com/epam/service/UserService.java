@@ -2,7 +2,6 @@ package com.epam.service;
 
 import com.epam.dao.UserDao;
 import com.epam.model.User;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +9,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
 public class UserService {
 
     @Autowired
     private UserDao userDao;
+
+    public List<User> getUsers() {
+        return userDao.values();
+    }
 
     public User getUserById(long userId) {
         return userDao.get(userId);
@@ -32,7 +34,7 @@ public class UserService {
         int skipCount = (pageNum - 1) * pageSize;
 
         return userDao.values().stream()
-                      .filter(user -> user.getName().equals(name))
+                      .filter(user -> user.getFirstName().equals(name))
                       .skip(skipCount)
                       .limit(pageSize)
                       .collect(Collectors.toList());

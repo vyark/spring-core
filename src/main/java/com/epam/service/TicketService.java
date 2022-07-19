@@ -21,8 +21,8 @@ public class TicketService {
     public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {
         Ticket ticket = new Ticket();
         ticket.setId(ticketDao.size() + 1);
-        ticket.setEventId(eventId);
-        ticket.setUserId(userId);
+        ticket.setEvent(new Event(eventId));
+        ticket.setUser(new User(userId));
         ticket.setCategory(category);
         ticket.setPlace(place);
         ticketDao.put(ticket.getId(), ticket);
@@ -33,23 +33,28 @@ public class TicketService {
         int skipCount = (pageNum - 1) * pageSize;
 
         return ticketDao.values().stream()
-                         .filter(ticket -> ticket.getUserId() == user.getId())
-                         .skip(skipCount)
-                         .limit(pageSize)
-                         .collect(Collectors.toList());
+                        .filter(ticket -> ticket.getUser().getId() == user.getId())
+                        .skip(skipCount)
+                        .limit(pageSize)
+                        .collect(Collectors.toList());
     }
 
     public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
         int skipCount = (pageNum - 1) * pageSize;
 
         return ticketDao.values().stream()
-                         .filter(ticket -> ticket.getEventId() == event.getId())
-                         .skip(skipCount)
-                         .limit(pageSize)
-                         .collect(Collectors.toList());
+                        .filter(ticket -> ticket.getEvent().getId() == event.getId())
+                        .skip(skipCount)
+                        .limit(pageSize)
+                        .collect(Collectors.toList());
     }
 
     public boolean cancelTicket(long ticketId) {
-       return ticketDao.remove(ticketId);
+        return ticketDao.remove(ticketId);
+    }
+
+    public Ticket getTicketById(long ticketId) {
+        return ticketDao.values().stream()
+                        .filter(ticket -> ticket.getId() == ticketId).findFirst().get();
     }
 }
