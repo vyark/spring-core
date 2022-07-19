@@ -78,11 +78,6 @@ public class WebMVCConfig implements WebMvcConfigurer, ApplicationContextAware {
     }
 
     @Bean
-    public Storage getStorage() {
-        return new Storage();
-    }
-
-    @Bean
     public Jaxb2Marshaller jaxb2Marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(new Class[]{

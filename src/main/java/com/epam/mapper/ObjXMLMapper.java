@@ -15,8 +15,7 @@ import java.util.List;
 @Component
 public class ObjXMLMapper {
 
-    private static final String FILE_NAME = "C:\\Users\\Volha_Yarkouskaya\\IdeaProjects\\spring" +
-            "-core\\src\\main\\resources\\data\\tickets.xml";
+    private static final String FILE_NAME = "tickets.xml";
     @Autowired
     private Jaxb2Marshaller unmarshaller;
 
