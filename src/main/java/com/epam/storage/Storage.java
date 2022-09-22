@@ -1,11 +1,14 @@
 package com.epam.storage;
 
+import com.epam.mapper.ObjXMLMapper;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
 import com.epam.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.io.InputStream;
@@ -13,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class Storage {
 
     public static final String TICKET_PREFIX_ID = "ticket:";
@@ -20,14 +24,16 @@ public class Storage {
     public static final String USER_PREFIX_ID = "user:";
 
     private Map<String, Object> repository = new HashMap<>();
+    @Autowired
+    private ObjXMLMapper objXMLMapper;
 
     @SneakyThrows
     @PostConstruct
     public void initialize() {
         ObjectMapper objectMapperEvents = new ObjectMapper();
-        InputStream inputStreamEvents = Event.class.getResourceAsStream("/events.json");
+        InputStream inputStreamEvents = Event.class.getResourceAsStream("/data/events.json");
 
-        TypeReference<List<Event>> typeReferenceEvents = new TypeReference<>() {
+        TypeReference<List<Event>> typeReferenceEvents = new TypeReference<List<Event>>() {
         };
         List<Event> resultEvents = objectMapperEvents.readValue(inputStreamEvents,
                 typeReferenceEvents);
@@ -36,23 +42,17 @@ public class Storage {
         }
 
         ObjectMapper objectMapperUsers = new ObjectMapper();
-        InputStream inputStreamUsers = User.class.getResourceAsStream("/users.json");
+        InputStream inputStreamUsers = User.class.getResourceAsStream("/data/users.json");
 
-        TypeReference<List<User>> typeReferenceUsers = new TypeReference<>() {
+        TypeReference<List<User>> typeReferenceUsers = new TypeReference<List<User>>() {
         };
         List<User> resultUsers = objectMapperUsers.readValue(inputStreamUsers, typeReferenceUsers);
         for (User user : resultUsers) {
             repository.put(USER_PREFIX_ID + user.getId(), user);
         }
 
-        ObjectMapper objectMapperTickets = new ObjectMapper();
-        InputStream inputStreamTickets = Ticket.class.getResourceAsStream("/tickets.json");
-
-        TypeReference<List<Ticket>> typeReferenceTickets = new TypeReference<>() {
-        };
-        List<Ticket> resultTickets = objectMapperTickets.readValue(inputStreamTickets,
-                typeReferenceTickets);
-        for (Ticket ticket : resultTickets) {
+        List<Ticket> ticketList = objXMLMapper.XMLToObj();
+        for (Ticket ticket : ticketList) {
             repository.put(TICKET_PREFIX_ID + ticket.getId(), ticket);
         }
     }

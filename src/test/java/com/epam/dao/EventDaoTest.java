@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -22,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class EventDaoTest {
     @Mock
     private Storage storage;
@@ -121,7 +119,7 @@ public class EventDaoTest {
 
         User user = new User();
         user.setId(1);
-        user.setName("Mary");
+        user.setFirstName("Mary");
         user.setEmail("mary@mail.com");
 
         Map<String, Object> repository = new HashMap<>();
